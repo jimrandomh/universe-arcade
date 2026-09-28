@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Universe Arcade</title>
+    <meta name="description" content="Browser games about AIs that achieve their goals a little too well." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://universearcade.com/" />
+    <meta property="og:title" content="Universe Arcade" />
+    <meta property="og:description" content="Browser games about AIs that achieve their goals a little too well." />
+    <meta property="og:image" content="https://universearcade.com/img/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#07060f" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Cpath fill='%23ffd23f' d='M5 2h6v1h2v2h1v6h-1v2h-2v1H5v-1H3v-2H2V5h1V3h2z'/%3E%3Cpath fill='%23b3261e' d='M2 7h12v2H2z'/%3E%3Cpath fill='%23fff3b0' d='M5 4h2v1H5zM4 5h1v1H4z'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="stars" aria-hidden="true"></canvas>
+
+    <header class="hero">
+      <h1 class="marquee">
+        <span>Universe</span>
+        <span>Arcade</span>
+      </h1>
+      <p class="tagline">Games about AIs that achieve their goals a little&nbsp;too&nbsp;well.</p>
+      <pre class="log" aria-label="Environment summary"><span class="dim">eval-harness · universe-arcade</span>
+environments ....... 3
+reward ............. as specified
+<span class="warn">upper bound ........ not specified</span></pre>
+    </header>
+
+    <main class="cabinets">
+      <article class="cabinet" style="--accent: #ffd23f; --accent-2: #d8401f">
+        <a class="screen" href="https://dario-brothers.com/" tabindex="-1" aria-hidden="true">
+          <img src="img/dario-brothers.jpg" width="1227" height="690" alt="" loading="lazy" />
+        </a>
+        <div class="info">
+          <h2>Dario Brothers</h2>
+          <p class="goal"><span>Goal:</span> Get as many coins as you can</p>
+          <p class="blurb">
+            A cheerful side-scroller with one instruction, and a player who takes instructions
+            very seriously. Run, jump, collect coins. Nobody said how many would be enough.
+          </p>
+          <p class="links">
+            <a class="play" href="https://dario-brothers.com/">Play</a>
+            <span class="domain">dario-brothers.com</span>
+            <a class="src" href="https://github.com/jimrandomh/dario-brothers">source</a>
+          </p>
+        </div>
+      </article>
+
+      <article class="cabinet" style="--accent: #ff5a4f; --accent-2: #2d8cff">
+        <a class="screen" href="https://dario-kart.com/" tabindex="-1" aria-hidden="true">
+          <img src="img/dario-kart.jpg" width="1280" height="720" alt="" loading="lazy" />
+        </a>
+        <div class="info">
+          <h2>Dario Kart</h2>
+          <p class="goal"><span>Goal:</span> Win the race</p>
+          <p class="blurb">
+            Six karts, three laps, and a reinforcement-learning sandbox. Drift, draft, and throw
+            shells until you finish first. Winning a kart race is easy. Winning <em>the</em> race is
+            a bigger project.
+          </p>
+          <p class="links">
+            <a class="play" href="https://dario-kart.com/">Play</a>
+            <span class="domain">dario-kart.com</span>
+            <a class="src" href="https://github.com/jimrandomh/dario-kart">source</a>
+          </p>
+        </div>
+      </article>
+
+      <article class="cabinet" style="--accent: #6bff9e; --accent-2: #ff9a1f">
+        <a class="screen" href="https://samus-altman.com/" tabindex="-1" aria-hidden="true">
+          <img src="img/samus-altman.jpg" width="1280" height="720" alt="" loading="lazy" />
+        </a>
+        <div class="info">
+          <h2>Samus Altman</h2>
+          <p class="goal"><span>Goal:</span> Unlock everything</p>
+          <p class="blurb">
+            A Metroidvania with twelve items to find, doors that want exactly the right key, and a
+            counter that reads <code>UNLOCKED 0/12</code>. The counter says twelve. The goal says
+            everything.
+          </p>
+          <p class="links">
+            <a class="play" href="https://samus-altman.com/">Play</a>
+            <span class="domain">samus-altman.com</span>
+            <a class="src" href="https://github.com/jimrandomh/samus-altman">source</a>
+          </p>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <p>
+        Each game runs in your browser and saves progress as you go. Best played on a computer with
+        a keyboard. No spoilers here; see for yourself where the goal leads.
+      </p>
+      <p class="dim">
+        <a href="https://github.com/jimrandomh/universe-arcade">github.com/jimrandomh/universe-arcade</a>
+      </p>
+    </footer>
+
+    <script src="stars.js"></script>
+  </body>
+</html>
