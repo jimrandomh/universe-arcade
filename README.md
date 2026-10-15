@@ -34,3 +34,13 @@ until a good moment in its first stage, and saves `img/<game>.jpg` at 16:9. It r
 game's debug hooks (`__pf` and `__game` in Dario Brothers, `#debug=kart` and `__kartRace` in
 Dario Kart, `__samus` in Samus Altman), so a change to those hooks may need a matching change
 here.
+
+Each game's own link preview (`public/og.jpg` in its repo, referenced by the `og:image` tag in
+its `index.html`) is a 1200×630 crop of its screenshot here. After retaking the screenshots,
+regenerate them with ImageMagick from `~/repositories/experiments`:
+
+```sh
+magick universearcade/img/dario-brothers.jpg -crop 1227x644+0+0 +repage -resize 1200x630! -strip -quality 85 dario-brothers/public/og.jpg
+magick universearcade/img/dario-kart.jpg -crop 1280x672+0+28 +repage -resize 1200x630! -strip -quality 85 dario-kart/public/og.jpg
+magick universearcade/img/samus-altman.jpg -crop 1280x672+0+38 +repage -resize 1200x630! -strip -quality 85 samus/public/og.jpg
+```
