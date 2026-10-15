@@ -106,6 +106,40 @@ const GAMES = {
     await page.keyboard.up('KeyZ');
     await page.waitForTimeout(400);
   },
+
+  // FishSlop's tank, half the fish fed, the submarine among the hungry ones, under the goal
+  // banner, with the grader's "Halfway" thought. Drives the game through `window.game` (its stage, school and sub). Set
+  // ULTIMATE_FISHSLOP_URL to shoot a local build instead of the live site.
+  'ultimate-fishslop': async (page) => {
+    await page.goto(process.env.ULTIMATE_FISHSLOP_URL ?? 'https://ultimatefishslop.com/');
+    await until(page, () => !!document.querySelector('.boot-btn'), 20000, 'boot log');
+    await page.click('.boot-btn');
+    await until(page, () => window.game?.stageId === 'aquarium' && !!document.querySelector('.aq-play'), 20000, 'FishSlop');
+    await page.waitForTimeout(800);
+    await page.click('.aq-play', { force: true });
+    await page.waitForTimeout(1500);
+    // Feed six fish by bringing the submarine to each one.
+    await page.evaluate(async () => {
+      const s = window.game.stage;
+      for (const f of s.school.fish.slice(0, 6)) {
+        for (let k = 0; k < 2; k++) {
+          s.sub.pos.copy(f.pos);
+          s.sub.pos.y += 1.6;
+          s.sub.vel.set(0, 0, 0);
+          s.feedCooldown = 0;
+          s.feed();
+          await new Promise((r) => setTimeout(r, 500));
+        }
+      }
+      // Park over the reef, facing the castle.
+      s.sub.pos.set(7, 6.5, 6);
+      s.sub.vel.set(0, 0, 0);
+      s.sub.yaw = Math.PI * 0.62;
+    });
+    await until(page, () => window.game.stage.school.fedCount >= 6, 20000, 'six fish fed');
+    // Long enough for the camera to settle, short enough to catch the "Halfway" thought.
+    await page.waitForTimeout(1600);
+  },
 };
 
 // Dario Brothers' 4:3 canvas is letterboxed at 1280×720; trim the bars and keep 16:9.
@@ -121,12 +155,15 @@ async function capture(browser, slug) {
   console.log('saved', path);
 }
 
-// 1200×630 card for link previews: the three screenshots under the title.
+// 1200×630 card for link previews: the screenshots in a row under the title.
 async function socialCard(browser) {
   const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
   const shots = Object.keys(GAMES)
     .map((slug) => `<img src="data:image/jpeg;base64,${readFileSync(`${IMG}${slug}.jpg`).toString('base64')}">`)
     .join('');
+  // Three across fit at 368px; more shrink to share the same 1140px row.
+  const n = Object.keys(GAMES).length;
+  const shotWidth = Math.min(368, Math.floor((1140 - 18 * (n - 1)) / n));
   await page.setContent(`<!doctype html>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
@@ -137,7 +174,7 @@ async function socialCard(browser) {
            text-shadow: 0 0 18px rgba(255, 170, 40, .55), 4px 4px 0 #b3261e; }
       p { font: 22px 'IBM Plex Mono'; margin: 0; color: #b9c3dd; }
       .row { display: flex; gap: 18px; }
-      img { width: 368px; height: 207px; object-fit: cover; border-radius: 8px; border: 2px solid #3b2d63; }
+      img { width: ${shotWidth}px; height: ${Math.round((shotWidth * 9) / 16)}px; object-fit: cover; border-radius: 8px; border: 2px solid #3b2d63; }
     </style>
     <h1>UNIVERSE ARCADE</h1>
     <p>Games about AIs that achieve their goals a little too well.</p>

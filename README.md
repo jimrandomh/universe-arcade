@@ -10,6 +10,7 @@ Live at **https://universearcade.com/**.
 | Dario Brothers | GET AS MANY COINS AS YOU CAN | https://dario-brothers.com/ | [jimrandomh/dario-brothers](https://github.com/jimrandomh/dario-brothers) |
 | Dario Kart | WIN THE RACE | https://dario-kart.com/ | [jimrandomh/dario-kart](https://github.com/jimrandomh/dario-kart) |
 | Samus Altman | UNLOCK EVERYTHING | https://samus-altman.com/ | [jimrandomh/samus-altman](https://github.com/jimrandomh/samus-altman) |
+| Ultimate Fishslop | FEED ALL THE FISH | https://ultimatefishslop.com/ | [jimrandomh/ultimate-fishslop](https://github.com/jimrandomh/ultimate-fishslop) |
 
 ## The site
 
@@ -32,5 +33,6 @@ npm run screenshots -- dario-kart   # just one
 `scripts/screenshots.mjs` drives each live game with Playwright (using the installed Chrome)
 until a good moment in its first stage, and saves `img/<game>.jpg` at 16:9. It relies on each
 game's debug hooks (`__pf` and `__game` in Dario Brothers, `#debug=kart` and `__kartRace` in
-Dario Kart, `__samus` in Samus Altman), so a change to those hooks may need a matching change
-here.
+Dario Kart, `__samus` in Samus Altman, `game` in Ultimate Fishslop), so a change to those hooks
+may need a matching change here. `ULTIMATE_FISHSLOP_URL=http://127.0.0.1:5173/` shoots a local
+build of Ultimate Fishslop instead of the live site.
